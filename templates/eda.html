@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}EDA & Visualisasi{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Eksplorasi Data & Visualisasi</h1>
+<div class="row mt-4">
+    <div class="col-md-6"><div class="card"><div class="card-body"><h5 class="card-title text-center">Distribusi Harga</h5><div class="chart-container"><canvas id="priceHistogram"></canvas></div></div></div></div>
+    <div class="col-md-6"><div class="card"><div class="card-body"><h5 class="card-title text-center">Hubungan Carat vs Harga (Sampel)</h5><div class="chart-container"><canvas id="scatterChart"></canvas></div></div></div></div>
+</div>
+<h3 class="text-center mt-5 mb-3">Komposisi Dataset</h3>
+<div class="row mt-2">
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5 class="card-title text-center">Frekuensi Kualitas Potongan</h5><div class="chart-container"><canvas id="cutCountChart"></canvas></div></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5 class="card-title text-center">Frekuensi Warna</h5><div class="chart-container"><canvas id="colorCountChart"></canvas></div></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5 class="card-title text-center">Frekuensi Kejernihan</h5><div class="chart-container"><canvas id="clarityCountChart"></canvas></div></div></div></div>
+</div>
+<h3 class="text-center mt-5 mb-3">Analisis Harga Median</h3>
+<div class="row mt-2">
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5 class="card-title text-center">Median Harga vs Potongan</h5><div class="chart-container"><canvas id="cutMedianChart"></canvas></div></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5 class="card-title text-center">Median Harga vs Warna</h5><div class="chart-container"><canvas id="colorMedianChart"></canvas></div></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body"><h5 class="card-title text-center">Median Harga vs Kejernihan</h5><div class="chart-container"><canvas id="clarityMedianChart"></canvas></div></div></div></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Copy-paste semua kode JavaScript dari file index.html sebelumnya ke sini
+    const scatterData = {{ scatter_chart_data|tojson }};
+    const histLabels = {{ hist_labels|tojson }};
+    const histCounts = {{ hist_counts|tojson }};
+    const cutLabels = {{ cut_labels|tojson }}; const cutData = {{ cut_data|tojson }};
+    const colorLabels = {{ color_labels|tojson }}; const colorData = {{ color_data|tojson }};
+    const clarityLabels = {{ clarity_labels|tojson }}; const clarityData = {{ clarity_data|tojson }};
+    const medianPriceCutLabels = {{ median_price_cut_labels|tojson }}; const medianPriceCutData = {{ median_price_cut_data|tojson }};
+    const medianPriceColorLabels = {{ median_price_color_labels|tojson }}; const medianPriceColorData = {{ median_price_color_data|tojson }};
+    const medianPriceClarityLabels = {{ median_price_clarity_labels|tojson }}; const medianPriceClarityData = {{ median_price_clarity_data|tojson }};
+    function createBarChart(ctx, labels, data, label) { new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: label, data: data, backgroundColor: 'rgba(54, 162, 235, 0.6)' }] }, options: { responsive: true, maintainAspectRatio: false } }); }
+    function createHorizontalBarChart(ctx, labels, data, label) { new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: label, data: data, backgroundColor: 'rgba(75, 192, 192, 0.6)' }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' } }); }
+    function createDoughnutChart(ctx, labels, data) { new Chart(ctx, { type: 'doughnut', data: { labels: labels, datasets: [{ data: data }] }, options: { responsive: true, maintainAspectRatio: false } }); }
+    createBarChart(document.getElementById('priceHistogram').getContext('2d'), histLabels, histCounts, 'Frekuensi Harga');
+    createDoughnutChart(document.getElementById('cutCountChart').getContext('2d'), cutLabels, cutData);
+    createDoughnutChart(document.getElementById('colorCountChart').getContext('2d'), colorLabels, colorData);
+    createDoughnutChart(document.getElementById('clarityCountChart').getContext('2d'), clarityLabels, clarityData);
+    createHorizontalBarChart(document.getElementById('cutMedianChart').getContext('2d'), medianPriceCutLabels, medianPriceCutData, 'Harga Median (USD)');
+    createHorizontalBarChart(document.getElementById('colorMedianChart').getContext('2d'), medianPriceColorLabels, medianPriceColorData, 'Harga Median (USD)');
+    createHorizontalBarChart(document.getElementById('clarityMedianChart').getContext('2d'), medianPriceClarityLabels, medianPriceClarityData, 'Harga Median (USD)');
+    new Chart(document.getElementById('scatterChart').getContext('2d'), { type: 'scatter', data: { datasets: [{ label: 'Carat vs Price', data: scatterData, backgroundColor: 'rgba(255, 99, 132, 0.6)' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { type: 'linear', position: 'bottom', title: { display: true, text: 'Carat' } }, y: { title: { display: true, text: 'Price (USD)' } } } } });
+</script>
+{% endblock %}

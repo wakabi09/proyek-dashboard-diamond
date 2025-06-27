@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Hasil Model Regresi{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Hasil Evaluasi Model Regresi</h1>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header fs-5">Model 1: Regresi Linier Sederhana (Prediktor: Carat)</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>R-squared ($R^2$):</strong> 0.849</li>
+                    <li class="list-group-item"><strong>RMSE:</strong> $1,546.64</li>
+                    <li class="list-group-item"><strong>MAE:</strong> $999.64</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-primary">
+            <div class="card-header fs-5 bg-primary text-white">Model 2: Regresi Linier Berganda (Model Terbaik)</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>R-squared ($R^2$):</strong> 0.921</li>
+                    <li class="list-group-item"><strong>RMSE:</strong> $1,121.25</li>
+                    <li class="list-group-item"><strong>MAE:</strong> $778.64</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-info mt-4" role="alert">
+  <strong>Kesimpulan:</strong> Model Regresi Berganda jauh lebih unggul karena menggunakan lebih banyak informasi (fitur), yang menghasilkan nilai R-squared lebih tinggi dan nilai error (RMSE/MAE) yang lebih rendah.
+</div>
+{% endblock %}

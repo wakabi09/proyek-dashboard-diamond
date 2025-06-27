@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Analisis Korelasi{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Analisis Korelasi</h1>
+<div class="card">
+    <div class="card-body text-center">
+        <p class="card-text">Heatmap di bawah ini menunjukkan korelasi Pearson antara semua variabel numerik dalam dataset. Nilai mendekati 1 (merah terang) menandakan korelasi positif yang kuat.</p>
+        <img src="{{ url_for('static', filename='images/correlation_heatmap.png') }}" class="img-fluid" alt="Correlation Heatmap">
+    </div>
+</div>
+{% endblock %}

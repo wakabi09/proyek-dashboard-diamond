@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Utama{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-4">Dashboard Analisis Harga Berlian</h1>
+    <p class="lead">Selamat datang di dashboard proyek analisis dan prediksi harga berlian.</p>
+</div>
+
+<div class="row text-center mt-5">
+    <div class="col-md-4"><div class="card bg-primary text-white"><div class="card-body"><h5 class="card-title">Jumlah Total Berlian</h5><p class="card-text fs-3">{{ total_diamonds }}</p></div></div></div>
+    <div class="col-md-4"><div class="card bg-success text-white"><div class="card-body"><h5 class="card-title">Harga Rata-rata</h5><p class="card-text fs-3">{{ avg_price }}</p></div></div></div>
+    <div class="col-md-4"><div class="card bg-info text-white"><div class="card-body"><h5 class="card-title">Carat Rata-rata</h5><p class="card-text fs-3">{{ avg_carat }}</p></div></div></div>
+</div>
+{% endblock %}
